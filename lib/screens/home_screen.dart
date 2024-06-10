@@ -1,71 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  HomeScreenState createState() => HomeScreenState();
-}
-
-class HomeScreenState extends State<HomeScreen> {
-  final String apiUrl = 'https://localhost:7059/api/Produto';
-
-  String imageUrl = '';
-  String productName = '';
-  double productPrice = 0.0;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  Future<void> fetchData() async {
-  final response = await http.get(Uri.parse(apiUrl));
-  if (response.statusCode == 200) {
-    final List<dynamic> jsonDataList = json.decode(response.body);
-    final Map<String, dynamic> jsonData = jsonDataList.isNotEmpty ? jsonDataList.first : {};
-    setState(() {
-      imageUrl = jsonData['referenciaImagem'] ?? '';
-      productName = jsonData['titulo'] ?? '';
-      productPrice = (jsonData['preco'] ?? 0).toDouble();
-    });
-  } else {
-    throw Exception('Falha ao carregar os dados da API');
-  }
-}
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Produtos'),
+        title: Row(
+          children: [
+            Icon(Icons.home),
+            SizedBox(width: 8),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                ),
+              ),
+            ),
+            SizedBox(width: 8),
+            Builder(
+              builder: (context) {
+                return IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Menu'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.shopping_cart),
+              title: Text('Produtos'),
+              onTap: () {
+                Navigator.pushNamed(context, '/produtos');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.announcement),
+              title: Text('Anuncios'),
+              onTap: () {
+                Navigator.pushNamed(context, '/anuncios');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.people),
+              title: Text('Usuários'),
+              onTap: () {
+                Navigator.pushNamed(context, '/usuarios');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.gamepad),
+              title: Text('Jogos'),
+              onTap: () {
+                Navigator.pushNamed(context, '/jogos');
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Image.network(imageUrl),
-                const SizedBox(height: 10.0),
-                Text(
-                  productName,
-                  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10.0),
-                Text(
-                  'Preço: \$${productPrice.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 16.0),
-                ),
-              ],
-            ),
-          ),
-        ),
+        child: Text('Conteúdo da Página Inicial'),
       ),
     );
   }
 }
+
