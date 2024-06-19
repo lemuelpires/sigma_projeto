@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../models/jogo.dart';
 
 class JogosScreen extends StatefulWidget {
-  const JogosScreen({Key? key}) : super(key: key);
+  const JogosScreen({super.key});
 
   @override
   _JogosScreenState createState() => _JogosScreenState();

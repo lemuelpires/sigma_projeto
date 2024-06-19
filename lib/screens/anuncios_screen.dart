@@ -6,7 +6,7 @@ import 'dart:convert';
 import '../models/anuncio.dart';
 
 class AnunciosScreen extends StatefulWidget {
-  const AnunciosScreen({Key? key}) : super(key: key);
+  const AnunciosScreen({super.key});
 
   @override
   _AnunciosScreenState createState() => _AnunciosScreenState();

@@ -9,8 +9,8 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(Icons.home),
-            SizedBox(width: 8),
+            const Icon(Icons.home),
+            const SizedBox(width: 8),
             Expanded(
               child: TextField(
                 decoration: InputDecoration(
@@ -21,15 +21,15 @@ class HomeScreen extends StatelessWidget {
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                 ),
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Builder(
               builder: (context) {
                 return IconButton(
-                  icon: Icon(Icons.menu),
+                  icon: const Icon(Icons.menu),
                   onPressed: () {
                     Scaffold.of(context).openEndDrawer();
                   },
@@ -42,36 +42,36 @@ class HomeScreen extends StatelessWidget {
       endDrawer: Drawer(
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Menu'),
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text('Menu'),
             ),
             ListTile(
-              leading: Icon(Icons.shopping_cart),
-              title: Text('Produtos'),
+              leading: const Icon(Icons.shopping_cart),
+              title: const Text('Produtos'),
               onTap: () {
                 Navigator.pushNamed(context, '/produtos');
               },
             ),
             ListTile(
-              leading: Icon(Icons.announcement),
-              title: Text('Anuncios'),
+              leading: const Icon(Icons.announcement),
+              title: const Text('Anuncios'),
               onTap: () {
                 Navigator.pushNamed(context, '/anuncios');
               },
             ),
             ListTile(
-              leading: Icon(Icons.people),
-              title: Text('Usuários'),
+              leading: const Icon(Icons.people),
+              title: const Text('Usuários'),
               onTap: () {
                 Navigator.pushNamed(context, '/usuarios');
               },
             ),
             ListTile(
-              leading: Icon(Icons.gamepad),
-              title: Text('Jogos'),
+              leading: const Icon(Icons.gamepad),
+              title: const Text('Jogos'),
               onTap: () {
                 Navigator.pushNamed(context, '/jogos');
               },
@@ -79,10 +79,9 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Conteúdo da Página Inicial'),
       ),
     );
   }
 }
-
